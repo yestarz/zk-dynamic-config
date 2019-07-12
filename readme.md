@@ -51,7 +51,7 @@ public ZookeeperPropertyPlaceholderConfigurer() throws Exception {
                         } else if (event.getType() == Watcher.Event.EventType.NodeDataChanged) {  //zk目录节点数据变化通知事件
                             try {
                                 log.info("配置已修改，新值为{}", new String(zk.getData(event.getPath(), true, stat)));
-                                this.reload(event.getPath());
+                                this.reload(event.getPath());// 刷新配置
                             } catch (Exception e) {
                                 log.error(e.getMessage(), e);
                             }
@@ -61,7 +61,7 @@ public ZookeeperPropertyPlaceholderConfigurer() throws Exception {
         //等待zk连接成功的通知
         connectedSemaphore.await();
 
-        // 将数据库配置提供给spring容器
+        // 将zk的配置提供给spring容器
         this.setProperties(this.load());
     }
 ```
@@ -112,7 +112,7 @@ public @interface AutoUpdate {
 - 当zk 节点发生变化时进行重新注入属性 
 
 ```java
-/**
+    /**
      * 从zookeeper中读取数据 ，然后遍历spring容器中所有的bean 对已修改的配置进行动态修改
      *
      * @param zkPath
@@ -175,9 +175,7 @@ public @interface AutoUpdate {
             field.set(bean, Boolean.valueOf(data));
         } else if (type.equals(Date.class)) {
             field.set(bean, new Date(Long.valueOf(data)));
-        } else {
-            field.set(bean, data);
-        }
+        } 
     }
     
     private String getValueName(String value) {
@@ -227,7 +225,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author yangxin
  * @date 2019/7/11
  */
-@AutoUpdate
+@AutoUpdate// important!
 @RestController
 public class TestController {
 
