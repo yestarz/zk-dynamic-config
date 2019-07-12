@@ -58,7 +58,7 @@ public class ZookeeperPropertyPlaceholderConfigurer extends PropertyPlaceholderC
         //等待zk连接成功的通知
         connectedSemaphore.await();
 
-        // 将数据库配置提供给spring容器
+        // 将zk配置提供给spring容器
         this.setProperties(this.load());
     }
 
@@ -146,8 +146,6 @@ public class ZookeeperPropertyPlaceholderConfigurer extends PropertyPlaceholderC
             field.set(bean, Boolean.valueOf(data));
         } else if (type.equals(Date.class)) {
             field.set(bean, new Date(Long.valueOf(data)));
-        } else {
-            field.set(bean, data);
         }
     }
 
