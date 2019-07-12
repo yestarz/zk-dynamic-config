@@ -1,28 +1,27 @@
-package link.yangxin.zookeeperdemo;
+package link.yangxin.zookeeperdemo.controller;
 
+import link.yangxin.zookeeperdemo.annotation.AutoUpdate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * @author yangxin
  * @date 2019/7/11
  */
-@AutoUpdate
 @RestController
-public class TestController {
+@AutoUpdate
+public class TestController2 {
 
     @Value("${myname}")
     private String name;
 
-    @RequestMapping("/test")
+    @Value("${server.port}")
+    private Integer port;
+
+    @RequestMapping("/test2")
     public String test(){
-        return name;
+        return name + " " +  port;
     }
-
-
 
 }

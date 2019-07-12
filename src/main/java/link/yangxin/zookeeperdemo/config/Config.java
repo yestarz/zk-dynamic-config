@@ -1,4 +1,4 @@
-package link.yangxin.zookeeperdemo;
+package link.yangxin.zookeeperdemo.config;
 
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.annotation.Bean;
@@ -11,12 +11,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class Config{
 
-
-
     @Bean
     public static PropertyPlaceholderConfigurer properties() throws Exception {
         return new ZookeeperPropertyPlaceholderConfigurer();
     }
-
 
 }

@@ -1,4 +1,4 @@
-package link.yangxin.zookeeperdemo;
+package link.yangxin.zookeeperdemo.annotation;
 
 import java.lang.annotation.*;
 
